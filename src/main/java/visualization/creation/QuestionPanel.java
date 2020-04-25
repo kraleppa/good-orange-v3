@@ -1,4 +1,4 @@
-package visualization;
+package visualization.creation;
 
 import model.Question;
 import service.CreateQuizService;

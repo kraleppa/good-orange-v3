@@ -8,23 +8,29 @@ import java.awt.event.ActionListener;
 
 public class Menu extends JPanel implements ActionListener {
     private final JButton createQuizButton;
+    private final JButton solveQuizButton;
     private final Router router;
 
     public Menu(Router router){
         super();
         this.router = router;
-        this.createQuizButton = new JButton("Create Quiz");
-        this.createQuizButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        this.createQuizButton.addActionListener(this);
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
 
         JLabel label = new JLabel("Good Orange V3");
         label.setBorder(new EmptyBorder(new Insets(20, 0, 50, 0)));
         label.setAlignmentX(Component.CENTER_ALIGNMENT);
         label.setFont(new Font("Serif", Font.BOLD, 25));
         add(label);
+
+        this.solveQuizButton = new JButton("Solve Quiz");
+        this.solveQuizButton.addActionListener(this);
+        this.solveQuizButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        add(solveQuizButton);
+
+        this.createQuizButton = new JButton("Create Quiz");
+        this.createQuizButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        this.createQuizButton.addActionListener(this);
         add(createQuizButton);
     }
 
@@ -32,6 +38,10 @@ public class Menu extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent event) {
         if (event.getSource() == createQuizButton){
             this.router.routeTo("CreatingPanel");
+        }
+
+        if (event.getSource() == solveQuizButton){
+            this.router.routeTo("ChooseQuizPanel");
         }
     }
 }
