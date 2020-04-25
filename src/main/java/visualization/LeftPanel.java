@@ -12,11 +12,9 @@ public class LeftPanel extends JPanel implements ActionListener {
     private final JButton returnButton;
     private final Router router;
     private final JTextField quizName;
-    private final CreateQuizService creator;
     private final DefaultListModel model;
-    public LeftPanel(Router router, CreateQuizService creator, DefaultListModel model){
+    public LeftPanel(Router router, DefaultListModel model){
         super();
-        this.creator = creator;
         this.router = router;
         this.model = model;
         JLabel quizLabel = new JLabel("Quiz name: ");
@@ -30,7 +28,7 @@ public class LeftPanel extends JPanel implements ActionListener {
 
         this.add(namePanel);
 
-        this.add(new QuestionPanel(creator, model));
+        this.add(new QuestionPanel(model));
 
         JPanel buttonPanel = new JPanel();
         this.saveButton = new JButton("Save Quiz");
@@ -49,10 +47,10 @@ public class LeftPanel extends JPanel implements ActionListener {
             this.router.routeTo("Menu");
         }
 
-        if (event.getSource() == saveButton && !this.quizName.getText().isEmpty() && this.creator.verify()){
-            creator.giveTitle(this.quizName.getText());
+        if (event.getSource() == saveButton && !this.quizName.getText().isEmpty() && CreateQuizService.getInstance().verify()){
+            CreateQuizService.getInstance().giveTitle(this.quizName.getText());
             this.quizName.setText("");
-            this.creator.saveToDataBase();
+            CreateQuizService.getInstance().saveToDataBase();
             this.router.routeTo("Menu");
             this.model.clear();
         }

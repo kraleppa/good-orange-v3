@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 
 public class CreateQuizService {
     private Quiz quiz;
-    private final DBController db = new DBController();
     private Question currentQuestion;
 
     private static CreateQuizService instance;
@@ -47,7 +46,7 @@ public class CreateQuizService {
 
     public void saveToDataBase(){
         this.quiz.getQuestions().get(0).getAnswers().forEach(answer -> System.out.println(answer.getText()));
-        this.db.saveQuiz(quiz);
+        DBController.getInstance().saveQuiz(quiz);
     }
 
     public boolean verify(){

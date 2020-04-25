@@ -15,15 +15,13 @@ public class QuestionPanel extends JPanel implements ActionListener {
     private final JTextField answerText;
     private final JButton saveButton;
     private final JButton addButton;
-    private final CreateQuizService creator;
     private final DefaultListModel listModel;
     private final JCheckBox checkbox;
     private final DefaultListModel questionsList;
 
-    public QuestionPanel(CreateQuizService creator, DefaultListModel questionsList){
+    public QuestionPanel(DefaultListModel questionsList){
         super();
         this.questionsList = questionsList;
-        this.creator = creator;
         this.setLayout(new GridLayout(4, 1));
 
         JPanel namePanel = new JPanel();
@@ -74,14 +72,16 @@ public class QuestionPanel extends JPanel implements ActionListener {
         }
 
         if (event.getSource() == saveButton && !questionText.getText().isEmpty() && !listModel.isEmpty()){
-            creator.createQuestion(questionText.getText());
+            CreateQuizService.getInstance().createQuestion(questionText.getText());
             for (Object element: listModel.toArray()){
                 String string = (String) element;
-                creator.createAnswer(string.split(": ")[0], string.split(": ")[1].equals("true"));
+                CreateQuizService.getInstance().createAnswer(string.split(": ")[0], string.split(": ")[1].equals("true"));
             }
             listModel.clear();
+            questionsList.clear();
             questionsList.addElement(this.questionText.getText());
             this.questionText.setText("");
+            answerText.setText("");
         }
 
     }

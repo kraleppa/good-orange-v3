@@ -21,7 +21,7 @@ public class CreatingPanel extends JPanel{
         this.router = parent;
         this.setLayout( new GridLayout(1, 2));
         this.listModel = new DefaultListModel();
-        this.add(new LeftPanel(this.router, this.creator, this.listModel));
+        this.add(new LeftPanel(this.router, this.listModel));
         this.list = new JList(listModel);
         this.add(new JScrollPane(this.list));
     }

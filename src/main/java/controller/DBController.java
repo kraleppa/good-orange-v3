@@ -10,10 +10,18 @@ import org.hibernate.cfg.Configuration;
 
 
 public class DBController {
-    Configuration config;
-    SessionFactory factory;
+    private final Configuration config;
+    private final SessionFactory factory;
+    private static DBController instance;
 
-    public DBController() {
+    public static DBController getInstance(){
+        if (instance == null){
+            instance = new DBController();
+        }
+        return instance;
+    }
+
+    private DBController() {
         this.config = new Configuration();
         this.config.configure("hibernate.cfg.xml");
         this.factory = config.buildSessionFactory();
