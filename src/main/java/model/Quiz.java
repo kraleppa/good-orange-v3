@@ -34,4 +34,9 @@ public class Quiz {
         question.setQuiz(this);
         this.questions.add(question);
     }
+
+    @Override
+    public String toString() {
+        return quizTitle;
+    }
 }

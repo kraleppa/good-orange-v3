@@ -3,10 +3,13 @@ package visualization.solving;
 import controller.DBController;
 import model.Quiz;
 import visualization.Router;
+import visualization.creation.CreatingPanel;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import java.awt.*;
+import java.awt.event.*;
 import java.util.stream.Collectors;
 
 public class ChooseQuizPanel extends JPanel implements ActionListener {
@@ -20,22 +23,28 @@ public class ChooseQuizPanel extends JPanel implements ActionListener {
         super();
         this.router = router;
         this.quizList = new DefaultListModel();
-        this.quizList.addAll(DBController.getInstance().getAllQuizzes());
+        this.refreshQuizList();
         this.refreshButton = new JButton("Refresh");
         this.refreshButton.addActionListener(this);
         this.menuButton = new JButton("Main Menu");
         this.menuButton.addActionListener(this);
 
-        add(menuButton);
-        add(refreshButton);
+        JPanel buttonPanel = new JPanel();
+
+        buttonPanel.add(menuButton);
+        buttonPanel.add(refreshButton);
+
+        this.setLayout(new GridLayout(2, 1));
 
         JList jList = new JList(quizList);
+        jList.addMouseListener(mouseListener);
         this.add(new JScrollPane(jList));
+        this.add(buttonPanel);
     }
 
     public void refreshQuizList(){
         this.quizList.clear();
-        this.quizList.addAll(DBController.getInstance().getAllQuizzes().stream().map(Quiz::getQuizTitle).collect(Collectors.toList()));
+        this.quizList.addAll(DBController.getInstance().getAllQuizzes());
     }
 
     @Override
@@ -45,7 +54,21 @@ public class ChooseQuizPanel extends JPanel implements ActionListener {
         }
 
         if (event.getSource() == menuButton){
-            this.router.routeTo("Menu|ChooseQuiz");
+            this.router.routeTo("Menu");
         }
     }
+
+    MouseListener mouseListener = new MouseAdapter() {
+        public void mouseClicked(MouseEvent mouseEvent) {
+            JList theList = (JList) mouseEvent.getSource();
+            if (mouseEvent.getClickCount() == 2) {
+                int index = theList.locationToIndex(mouseEvent.getPoint());
+                if (index >= 0) {
+                    Quiz quiz = (Quiz) theList.getModel().getElementAt(index);
+                    System.out.println(quiz.toString());
+                    router.routeTo(new QuizSolvePanel(quiz));
+                }
+            }
+        }
+    };
 }
