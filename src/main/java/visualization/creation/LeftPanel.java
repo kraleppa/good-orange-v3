@@ -52,6 +52,7 @@ public class LeftPanel extends JPanel implements ActionListener {
             CreateQuizService.getInstance().giveTitle(this.quizName.getText());
             this.quizName.setText("");
             CreateQuizService.getInstance().saveToDataBase();
+
             this.router.routeTo("Menu");
             this.model.clear();
         }

@@ -8,6 +8,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
+import java.util.List;
+
 
 public class DBController {
     private final Configuration config;
@@ -34,5 +36,14 @@ public class DBController {
         session.save(quiz);
         transaction.commit();
         session.close();
+    }
+
+    public List<Quiz> getAllQuizzes(){
+        Session session = factory.openSession();
+
+        List<Quiz> result = session.createQuery("FROM Quiz", Quiz.class).getResultList();
+
+        session.close();
+        return result;
     }
 }

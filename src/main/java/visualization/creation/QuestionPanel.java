@@ -78,7 +78,6 @@ public class QuestionPanel extends JPanel implements ActionListener {
                 CreateQuizService.getInstance().createAnswer(string.split(": ")[0], string.split(": ")[1].equals("true"));
             }
             listModel.clear();
-            questionsList.clear();
             questionsList.addElement(this.questionText.getText());
             this.questionText.setText("");
             answerText.setText("");
