@@ -62,7 +62,9 @@ public class QuizSolveService {
     public List<String> parseFinalResults(){
         List <String> resultsList = new ArrayList<>();
         for (int i = 0; i < this.numberOfQuestions; i++){
-            resultsList.add(quiz.getQuestions().get(i).getText() + "   " + pointsList.get(i) + "/1.0");
+
+            resultsList.add(quiz.getQuestions().get(i).getText() + "   " +
+                    String.format("%.1f", pointsList.get(i)) + "/1.0");
         }
         return resultsList;
     }

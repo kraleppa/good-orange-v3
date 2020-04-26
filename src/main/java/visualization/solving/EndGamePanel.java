@@ -33,7 +33,7 @@ public class EndGamePanel extends JPanel implements ActionListener {
         panel1.add(title);
 
         JPanel panel2 = new JPanel();
-        JLabel label = new JLabel("Your score: " + service.getTotalPoints() + "/"
+        JLabel label = new JLabel("Your score: " + String.format("%.1f", service.getTotalPoints()) + "/"
                 + service.getNumberOfQuestions() + ".0");
         label.setBorder(new EmptyBorder(new Insets(20, 0, 50, 0)));
         label.setFont(new Font("Serif", Font.BOLD, 25));
