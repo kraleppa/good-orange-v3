@@ -47,12 +47,13 @@ public class QuizSolvePanel extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent event) {
         if (event.getSource() == nextButton){
+            this.service.checkAndSaveAnswers(this.currentQuestionPanel.parseAnswers());
             if (this.service.getQuestionIndex() + 1 < this.service.getNumberOfQuestions()){
-                this.service.checkAndSaveAnswers(this.currentQuestionPanel.parseAnswers());
+
                 this.service.nextQuestion();
                 this.refreshPanel();
             } else {
-                this.router.routeTo("Menu");
+                this.router.routeTo(new EndGamePanel(this.router, this.service));
             }
 
 
@@ -66,7 +67,9 @@ public class QuizSolvePanel extends JPanel implements ActionListener {
     public void refreshPanel(){
         this.removeAll();
         this.questionNumberLabel.setText("Question number: " +
-                (this.service.getQuestionIndex() + 1) + "/" + this.service.getNumberOfQuestions());        this.add(new QuestionPanel(this.service.getCurrentQuestion()));
+                (this.service.getQuestionIndex() + 1) + "/" + this.service.getNumberOfQuestions());
+        this.currentQuestionPanel = new QuestionPanel(this.service.getCurrentQuestion());
+        this.add(this.currentQuestionPanel);
         this.add(buttonPanel);
         this.validate();
         this.repaint();

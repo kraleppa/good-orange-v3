@@ -37,10 +37,6 @@ public class QuizSolveService {
         this.currentQuestion = quiz.getQuestions().get(0);
     }
 
-    public String getQuizName(){
-        return this.quiz.toString();
-    }
-
     public void nextQuestion(){
         if (this.questionIndex + 1 < this.numberOfQuestions){
             this.questionIndex++;
@@ -55,6 +51,7 @@ public class QuizSolveService {
         for (int i = 0; i < list.size(); i++){
             if (list.get(i) && answerList.get(i).isCorrect()){
                 questionPoints += answerValue;
+
             } else if (!list.get(i) && !answerList.get(i).isCorrect()){
                 questionPoints += answerValue;
             }
@@ -62,5 +59,23 @@ public class QuizSolveService {
         this.pointsList.add(questionPoints);
     }
 
+    public List<String> parseFinalResults(){
+        List <String> resultsList = new ArrayList<>();
+        for (int i = 0; i < this.numberOfQuestions; i++){
+            resultsList.add(quiz.getQuestions().get(i).getText() + "   " + pointsList.get(i) + "/1.0");
+        }
+        return resultsList;
+    }
 
+    public String getQuizTitle(){
+        return this.quiz.getQuizTitle();
+    }
+
+    public double getTotalPoints(){
+        double sum = 0.0;
+        for (double el : pointsList){
+            sum += el;
+        }
+        return sum;
+    }
 }
