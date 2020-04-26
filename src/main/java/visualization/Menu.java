@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 public class Menu extends JPanel implements ActionListener {
     private final JButton createQuizButton;
     private final JButton solveQuizButton;
+    private final JButton exitButton;
     private final Router router;
 
     public Menu(Router router){
@@ -28,10 +29,22 @@ public class Menu extends JPanel implements ActionListener {
         this.solveQuizButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         add(solveQuizButton);
 
+        this.add(new JLabel("    "));
+
         this.createQuizButton = new JButton("Create Quiz");
         this.createQuizButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.createQuizButton.addActionListener(this);
         add(createQuizButton);
+
+        this.add(new JLabel("    "));
+
+        this.exitButton = new JButton("Exit");
+        this.exitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        this.exitButton.addActionListener(this);
+        add(exitButton);
+
+
+
     }
 
     @Override
@@ -42,6 +55,10 @@ public class Menu extends JPanel implements ActionListener {
 
         if (event.getSource() == solveQuizButton){
             this.router.routeTo("ChooseQuizPanel");
+        }
+
+        if (event.getSource() == exitButton){
+            System.exit(0);
         }
     }
 }
