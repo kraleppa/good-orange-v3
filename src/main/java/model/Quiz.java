@@ -23,7 +23,7 @@ public class Quiz {
     @NotNull
     private String quizTitle;
 
-    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Question> questions = new ArrayList<Question>();;
 
     public Quiz(String title){

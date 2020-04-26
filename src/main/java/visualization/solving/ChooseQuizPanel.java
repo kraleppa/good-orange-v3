@@ -66,7 +66,7 @@ public class ChooseQuizPanel extends JPanel implements ActionListener {
                 if (index >= 0) {
                     Quiz quiz = (Quiz) theList.getModel().getElementAt(index);
                     System.out.println(quiz.toString());
-                    router.routeTo(new QuizSolvePanel(quiz));
+                    router.routeTo(new QuizSolvePanel(quiz, router));
                 }
             }
         }

@@ -23,7 +23,7 @@ public class Question {
     @NotNull
     String text;
 
-    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Answer> answers = new ArrayList<Answer>();;
 
     @ManyToOne
